@@ -31,6 +31,8 @@ const initialValues= {
 document.getElementById("loan-amount").value=initialValues.amount
 document.getElementById("loan-years").value=initialValues.years
 document.getElementById("loan-rate").value=initialValues.rate
+
+
 update()
 
 }
@@ -46,17 +48,24 @@ function update() {
 // calculate the monthly payment.  The output should be a string
 // that always has 2 decimal places.
 function calculateMonthlyPayment(values) {
+
   let p=values.amount
   let n=values.years*12
   let i=values.rate/12/100
   let monthlyPayment= (p*i)/(1-((1+i)**-n))
-  monthlyPayment=monthlyPayment.toFixed(2).toString()
-  updateMonthly(monthlyPayment)
+  let monthlyPaymentUi=monthlyPayment.toFixed(2).toString()
+  updateMonthly(monthlyPaymentUi)
+  return monthlyPaymentUi
+
 }
+
 
 // Given a string representing the monthly payment value,
 // update the UI to show the value.
 function updateMonthly(monthly) {
    let payment=document.getElementById('monthly-payment')
-  payment.append(monthly)
+   if (payment){
+  payment.innerHTML=`$${monthly}`
+  return payment
+   }
 }
